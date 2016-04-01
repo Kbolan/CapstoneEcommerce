@@ -1,0 +1,71 @@
+	<p>&copy; Initech 2014</p>
+  </div><!--/.fluid-container-->
+	 <!-- Le javascript
+    	================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+    	<script src="/js/jquery.js"></script>
+		<script src="/js/to-title-case.js"></script>
+		<script src="/js/titleCase.js"></script>
+		<script src="/js/contact.js"></script>
+	    <script src="/js/bootstrap-transition.js"></script>
+	    <script src="/js/bootstrap-alert.js"></script>
+    	<script src="/js/bootstrap-modal.js"></script>
+	    <script src="/js/bootstrap-dropdown.js"></script>
+	    <script src="/js/bootstrap-scrollspy.js"></script>
+		<script src="/js/bootstrap-tab.js"></script>
+		<script src="/js/bootstrap-tooltip.js"></script>
+		<script src="/js/bootstrap-popover.js"></script>
+		<script src="/js/bootstrap-button.js"></script>
+		<script src="/js/bootstrap-collapse.js"></script>
+		<script src="/js/bootstrap-carousel.js"></script>
+		<script src="/js/bootstrap-typeahead.js"></script>
+		<script src="/js/jquery.validate.js"></script>
+		<script src="/js/jquery.validate.min.js"></script>   
+		<script src="/js/jquery.scrollTo.js"></script>
+		<script src="/js/minicart.min.js"></script>
+		<script>
+		
+        // Mini Cart
+        paypal.minicart.render({
+            action: 'https://www.sandbox.paypal.com/cgi-bin/webscr'
+        });
+
+		if (typeof paypal.minicart.cart.items().length !== "undefined")
+			document.getElementById("badge").innerHTML = paypal.minicart.cart.items().length; 
+		
+        if (~window.location.search.indexOf('reset=true')) {
+            paypal.minicart.reset();
+            document.getElementById("badge").style.visibility="hidden";
+        }
+        
+        paypal.minicart.cart.on('add', function (idx, product, isExisting) {
+        	var items = paypal.minicart.cart.items();
+			if (items[0].get("buyer") !== 'null') {
+				if (isExisting) {
+					product.set('quantity', 1);
+				} else {
+					document.getElementById("badge").innerHTML = paypal.minicart.cart.items().length;
+				}
+				addItem(product, paypal.minicart.cart.items(), paypal.minicart.cart.total());
+			} else {
+				alert('Sorry, only registered buyers can purchase items.');
+				paypal.minicart.reset();
+			}
+		});
+		
+		paypal.minicart.cart.on('remove', function (idx, product) {
+// 			if (paypal.minicart.cart.total() == 0) {
+// 				document.getElementById("badge").innerHTML = 0; 
+// 				itemCount = 0;
+// 			} else {
+// 				--itemCount;
+// 				document.getElementById("badge").innerHTML = itemCount; 
+// 				}
+			document.getElementById("badge").innerHTML = paypal.minicart.cart.items().length;
+		});        	        
+        	        
+// 			document.getElementById("badge").innerHTML = paypal.minicart.cart.total() // gives price
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<% include _header %>
+
+	<div class="container-fluid">
+		<div class="row-fluid home register">
+			<div class="span2">
+				<div class="well">
+					<p class="secondaryNav">
+						<a href="/" class="btn btn-info btn-block">Home »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/about" class="btn btn-inverse btn-block">About »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/contact" class="btn btn-info btn-block">Contact »</a>
+					</p>
+					<% if(typeof user != "undefined") { %>
+						<p class="secondaryNav">
+							<a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+						</p>
+
+						<% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+				            <p class="secondaryNav">
+				              <a href="/sellBook" class="btn btn-info btn-block">Sell a Book &raquo;</a>
+				            </p>
+				          <% } %>
+					 <% } %>
+				</div><!--/.well -->
+	        </div><!--/span-->
+
+
+			<div class="span8">
+				<h1 class="aboutHeader">Welcome to Byblos Bookstore</h1>
+
+				<h3>Who we are?</h3>
+				<p class="aboutInfo">
+					We an online market place that provides a general market place for book buyers and
+					sellers.
+				</p>
+
+				<h3>Our Mission</h3>
+				<p class="aboutInfo">
+					The Βύβλος site allow users to buy and sell books from one common platform. The Βύβλος website has a working
+					catalog of books for all its users.
+					<br />
+					Feel free to <a href="/contact">contact us</a> with any questions or comments.
+				</p>
+			</div><!--/row-->
+
+			<div class="span2">
+				<div class="well ads">
+					<h4>ADS</h4>
+					<img src="img/ViagraAd.png">
+				</div>
+			</div><!--/row-->
+
+		</div><!--/row-->
+	</div><!--/span-->
+
+      <hr>
+
+<% include _footer %>

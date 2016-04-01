@@ -1,0 +1,165 @@
+<% include _header %>
+
+   <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-info btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/editAddress" class="btn btn-info btn-block">Edit Address &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/addPayPalAccount" class="btn btn-info btn-block">Add PayPal Account &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/recentPurchases" class="btn btn-info btn-block">Recent Purchases &raquo;</a>
+          </p>
+          <% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+            <p class="secondaryNav">
+              <a href="/sellBook" class="btn btn-info btn-block">Sell a Book &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/sellersListings" class="btn btn-info btn-block">Current Listings &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageSellerInventory" class="btn btn-inverse btn-block">Manage Inventory &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageOrders" class="btn btn-info btn-block">Manage Orders &raquo;</a>
+            </p>
+          <% } %>
+
+
+        </div><!--/.well -->
+          </div><!--/span-->
+
+
+        <div class="span9">
+
+            <h1><center><u>Current Active Status of Books for Sale by You</u></center></h1>
+            <h2><center>Current Active Books For Sale</center></h2>
+            <form action="/manageSellerInventory" method="post">
+              <% if (books !== undefined) {
+
+                if (books.length > 0) { var count = 0;%>
+                  <table class="table table-hover">
+                    <tr>
+                      <th>Book Title</th>
+                      <th>Book Author</th>
+                      <th>Date Listed</th>
+                      <th>Condition</th>
+                      <th>Price</th>
+                      <th>Listing Status</th>
+                    </tr>
+                    <% books.forEach(function (book) {
+                      if (count%1 == 0 && count>0) {
+                    %> </tr><tr>
+                    <% } %>
+                        <td>
+                          <%= book.Title %>
+                        </td>
+                        <td>
+                          <%= book.Author %>
+                        </td>
+                        <td>
+                          <%= book.createdAt.replace(/T.*Z/g, "") %>
+                        </td>
+                        <td>
+                          <%= book.Condition %>
+                        </td>
+                        <td>
+                          <%= book.Price %>
+                        </td>
+                        <td>
+                        <% var dynamicActiveName = "listingStatus" + book.objectId %>
+                          <select name=<%=dynamicActiveName %>>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                          </select>
+                        </td>
+                    <% count++;%>
+                    <% }); %>
+                  </table> <!-- row-fluid -->
+                <% } %>
+
+              <% } else { %>
+                <div><center><i>You do not currently have any active listings</div>
+              <% } %>
+            <h2><center>Current Inactive Books For Sale</center></h2>
+              <% if (booksInactive !== undefined) {
+
+                if (booksInactive.length > 0) { var count = 0;%>
+                  <table class="table table-hover">
+                    <tr>
+                      <th>Book Title</th>
+                      <th>Book Author</th>
+                      <th>Date Listed</th>
+                      <th>Condition</th>
+                      <th>Price</th>
+                      <th>Listing Status</th>
+                    </tr>
+                    <% booksInactive.forEach(function (book) {
+                      if (count%1 == 0 && count>0) {
+                    %> </tr><tr>
+                    <% } %>
+                        <td>
+                          <%= book.Title %>
+                        </td>
+                        <td>
+                          <%= book.Author %>
+                        </td>
+                        <td>
+                          <%= book.createdAt.replace(/T.*Z/g, "") %>
+                        </td>
+                        <td>
+                          <%= book.Condition %>
+                        </td>
+                        <td>
+                          <%= book.Price %>
+                        </td>
+                        <td>
+                        <% var dynamicInactiveName = "listingStatus" + book.objectId %>
+                          <select name=<%=dynamicInactiveName %>>
+                            <option value="inactive">Inactive</option>
+                            <option value="active">Active</option>
+                          </select>
+                        </td>
+                    <% count++;%>
+                    <% }); %>
+                  </table> <!-- row-fluid -->
+                <% } %>
+
+              <% } else { %>
+                <div><center><i>You do not currently have any inactive listings</div>
+              <% } %>
+              <% if (booksInactive !== undefined || books !== undefined) {%>
+              <table>
+                <tr>
+                  <td><button type="submit" class="btn btn-success">Submit</button></td>
+                  <td><a href="/userProfile" class="btn btn-danger">Cancel</a></td>
+                </tr>
+              </table>
+              <% } else { %>
+
+              <% } %>
+            </form>
+
+
+
+          </div><!--/row-->
+
+
+
+
+
+      </div><!--/row-->
+
+
+      <hr>
+
+<% include _footer %>

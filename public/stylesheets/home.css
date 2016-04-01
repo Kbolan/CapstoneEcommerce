@@ -1,0 +1,200 @@
+body {
+padding-top: 60px;
+padding-bottom: 40px;
+}
+.sidebar-nav {
+padding: 9px 0;
+}
+
+.container-fluid .home {
+	margin-top:2%;
+}
+
+@media (max-width: 980px) {
+/* Enable use of floated navbar text */
+.navbar-text.pull-right {
+  float: none;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+}
+#loggedIn {
+visibility: hidden;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.ads {
+	padding-top: 3%;
+	text-align: center;
+}
+
+/* ===================== center search ======================== */
+   .global-search .form-group {
+    width:100%;
+    margin-left:15%;
+  }
+   .global-search .form-control{
+    width:70%;
+    margin-right:1%;
+  }
+
+   .global-search .form-control .btn .btn-default{
+      /* width:120px; */
+      width:10%;
+      display: inline;
+}
+
+.bookRow {
+	margin-top:2%;
+	margin-bottom:2%;
+}
+
+.bookCol {
+    padding-top:2%;
+    margin-left: auto;
+    margin-right: auto; 
+    text-align: center;
+}
+
+.bookCol img {
+    display: block;
+    margin: 0 auto;
+    height:110px;
+    width:100px;
+}
+
+.bookCol .link a{
+/* width: 160px; */
+  overflow: hidden;
+  font-size: 90%;
+}
+
+.bookCol .link {
+	vertical-align: text-bottom;
+	height:30px;
+}
+
+.box {
+	height: 20%;
+}
+.bookType {
+margin-top:0;
+}
+
+.secondaryNav {
+	margin: 2% 0 10%;
+}
+
+/* ====================== registration style ====================== */
+.form-signin {
+	max-width: 300px;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+			border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+		box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+	font-size: 16px;
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
+}
+
+#regMsg{
+	color: green;
+}
+
+#errorMsg{
+	color: red;
+}
+
+.register {
+	margin-top: 3.5%;
+}
+
+/* ====================== about =========================== */
+.aboutHeader {
+    text-align: center;
+    margin-bottom:5%;
+}
+.aboutInfo {
+	font-size: 14px;
+	    margin-bottom:2%;
+}
+/* ====================== contact =========================== */
+#inquiry {
+	width: 50%;
+}
+/* ====================== cart =========================== */
+.cart{
+	margin-top:-15%;
+float:left;
+}
+.cartForm {
+	display: inline;
+}
+
+input.cart {
+	height:50px;
+	width:50px;
+}
+
+#example ul {
+    list-style-type: none;
+    padding: 0;
+    line-height: 1.9em;
+}
+
+#example form {
+    float: left;
+    padding: 10px 10px 10px 15px;
+}
+
+#example form strong {
+    font-size: 1.167em;
+    font-weight: bold;
+}
+
+#example form.last {
+    margin: 0;
+    border: 0;
+}
+
+#example fieldset {
+    position: relative;
+    min-width: 9em;
+    height: 9em;
+    margin: 0;
+    padding: 10px;
+    background: #5a85ad;
+    border: 0;
+    border-radius: 8px;
+}
+
+#example fieldset .button {
+    position: absolute;
+    bottom: 10px;
+}
+
+#example .container {
+    overflow: auto;
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+}

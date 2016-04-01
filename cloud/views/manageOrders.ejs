@@ -1,0 +1,129 @@
+<% include _header %>
+
+   <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-info btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/editAddress" class="btn btn-info btn-block">Edit Address &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/addPayPalAccount" class="btn btn-info btn-block">Add PayPal Account &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/recentPurchases" class="btn btn-info btn-block">Recent Purchases &raquo;</a>
+          </p>
+          <% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+            <p class="secondaryNav">
+              <a href="/sellBook" class="btn btn-info btn-block">Sell a Book &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/sellersListings" class="btn btn-info btn-block">Current Listings &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageSellerInventory" class="btn btn-info btn-block">Manage Inventory &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageOrders" class="btn btn-inverse btn-block">Manage Orders &raquo;</a>
+            </p>
+          <% } %>
+
+
+        </div><!--/.well -->
+          </div><!--/span-->
+
+
+        <div class="span9">
+
+            <h1><center>Manage Orders</center></h1>
+            <h2><center>Current Amount of Sales Earned: $</center></h2>
+            </br>
+            <h2><center>Orders</center></h2>
+            <form action="/manageOrders" method="post">
+              <% if (books !== undefined) {
+
+                if (books.length > 0) { var count = 0;%>
+                  <table class="table table-hover">
+                    <tr>
+                      <th>Book Information</th>
+                      <th>Date Listed</th>
+                      <th>Price</th>
+                      <th>Buyer's Information</th>
+                      <th>Status</th>
+                      <th>Ship Item Now?</th>
+                    </tr>
+                    <% books.forEach(function (book) {
+                      if (count%1 == 0 && count>0) {
+                    %> </tr><tr>
+                    <% } %>
+                        <td>
+                          <% var link = "/bookDetails/" + book.books[0]; %>
+                          <a href=<%=link%>><%= book.books[0]%></a>
+                        </td>
+                        <td>
+                          <%= book.createdAt.replace(/T.*Z/g, "") %>
+                        </td>
+                        <td>
+                          $<%= book.total %>
+                        </td>
+                        <td>
+                          <% var link = "/viewBuyerInformation/" + book.buyer; %>
+                          <a href=<%=link%>><%= book.buyer.substring(0, book.buyer.indexOf('@')) %></a>
+                        </td>
+                        <td>
+                          <%= book.status %>
+                        </td>
+                        <td>
+                        <% var dynamicActiveName = "listingStatus" + book.objectId
+                        if(book.status !== "Shipped"){%>
+                          <select name=<%=dynamicActiveName %>>
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                        </td>
+                        <% } %>
+                        <% if(!book.hasBuyerFeedback){ %>
+                          <td>
+                            <% var link = "/buyerFeedback/" + book.objectId; %>
+                            <a href=<%=link%>>Leave Feedback</a>
+                          </td>
+                        <% } %>
+                    <% count++;%>
+                    <% }); %>
+                  </table> <!-- row-fluid -->
+                  <table>
+                    <tr>
+                      <td><button type="submit" class="btn btn-success">Submit</button></td>
+                      <td><a href="/userProfile" class="btn btn-danger">Cancel</a></td>
+                    </tr>
+                  </table>
+                <% } %>
+
+              <% } else { %>
+                <div><center><i>No Orders Found</div>
+              <% } %>
+
+
+
+            </form>
+
+
+
+          </div><!--/row-->
+
+
+
+
+
+      </div><!--/row-->
+
+
+      <hr>
+
+<% include _footer %>

@@ -1,0 +1,98 @@
+<% include _header %>
+
+   <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-info btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/editAddress" class="btn btn-info btn-block">Edit Address &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/addPayPalAccount" class="btn btn-info btn-block">Add PayPal Account &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/recentPurchases" class="btn btn-info btn-block">Recent Purchases &raquo;</a>
+          </p>
+          <% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+            <p class="secondaryNav">
+              <a href="/sellBook" class="btn btn-info btn-block">Sell a Book &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/sellersListings" class="btn btn-inverse btn-block">Current Listings &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageSellerInventory" class="btn btn-info btn-block">Manage Inventory &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageOrders" class="btn btn-info btn-block">Manage Orders &raquo;</a>
+            </p>
+          <% } %>
+
+
+        </div><!--/.well -->
+          </div><!--/span-->
+
+
+        <div class="span9">
+
+            <h1><center><u>Current Books for Sale by You</u></center></h1>
+
+              <% if (typeof books !== "undefined") {
+
+                if (books.length > 0) { var count = 0;%>
+                  <div class="row-fluid">
+                    <% books.forEach(function (book) {
+                      if (count%4 == 0 && count>0) {
+                    %> </div><div class="row-fluid bookRow">
+                    <% } %>
+                      <div class="span3 display bookCol">
+                        <% var imgLink = "https://covers.openlibrary.org/b/isbn/" + book.ISBN + "-M.jpg" %>
+                        <img class="top" src=<%=imgLink%> width="100" height="100" alt="book cover"/>
+                        <div class="box">
+                          <p>
+                            <%= book.Title %>
+
+                            <div> <br/></div>
+                          </p>
+                        </div>
+                        <div>
+                          <span class="TimeListed">
+                            <%= book.createdAt.replace(/T.*Z/g, "") %>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="Condition">
+                            <%= book.Condition %>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="Price">
+                            <%= book.Price %>
+                          </span>
+                        </div>
+                      </div> <!-- span3 -->
+                    <% count++;%>
+                    <% }); %>
+                  </div> <!-- row-fluid -->
+                <% } %>
+              <% } else { %>
+                <div>No Listings Found</div>
+              <% } %>
+          </div><!--/row-->
+
+
+
+
+
+      </div><!--/row-->
+
+
+      <hr>
+
+<% include _footer %>

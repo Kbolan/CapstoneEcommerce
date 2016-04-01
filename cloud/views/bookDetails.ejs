@@ -1,0 +1,87 @@
+<% include _header %>
+
+  <div class="container-fluid">
+    <div class="row-fluid home register search">
+    </div>
+  </div>
+
+    <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-inverse btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/about" class="btn btn-info btn-block">About »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/contact" class="btn btn-info btn-block">Contact »</a>
+          </p>
+          <% if(typeof user != "undefined") { %>
+            <p class="secondaryNav">
+              <a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+            </p>
+
+            <% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+                    <p class="secondaryNav">
+                      <a href="/sellBook" class="btn btn-info btn-block">Sell a Book &raquo;</a>
+                    </p>
+                  <% } %>
+           <% } %>
+
+        </div><!--/.well -->
+          </div><!--/span-->
+
+          <div class="span10">
+            <div class="row-fluid">
+
+              <% if(typeof book != undefined) { %>
+                <div class="thumbnail">
+                  <% var imgLink = "http://covers.openlibrary.org/b/isbn/" + book.ISBN + "-M.jpg" %>
+                    <img id="cover" class="top" src=<%=imgLink%> alt="book cover"/>
+                </div>
+                <h3 class="title"><%= book.Title %></h3>
+              <% } else { %>
+                <h3 class="title">Title unknown</h3>
+              <% } %>
+              <dl>
+                <dt id="description"><h4>Description</h4></dt>
+                <dd>
+                  <% if(typeof book.Author != "undefined") { %>
+                    Author: <%= book.Author %>
+                  <% } else { %>
+                    Author: unknown
+                  <% } %>
+                </dd>
+                <dd>
+                  <% if(typeof book != "undefined") { %>
+                    ISBN-13: <%= book.ISBN
+                    %>
+                  <% } else { %>
+                    ISBN-13: unknown
+                  <% } %>
+                </dd>
+                <dd>
+                  <% if(typeof book != "undefined") { %>
+                    ISBN-10: <%= book.isbn_10 %>
+                  <% } else { %>
+                    ISBN-10:: unknown
+                  <% } %>
+                </dd>
+                <dd>
+                </br>
+              <button class="btn btn-info" onclick="goBack()">Return</button>
+
+              <script>
+              function goBack() {
+                  window.history.back()
+              }
+              </script>
+                </dd>
+              </dl>
+            </div><!--/row-fluid-->
+          </div><!--/span10-->
+          </div><!--/row-->
+
+<% include _footer %>

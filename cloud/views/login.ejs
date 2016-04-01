@@ -1,0 +1,49 @@
+<% include _header %>
+
+    <div class="container-fluid">
+		<div class="row-fluid home register">
+			<div class="span2">
+				<div class="well">
+					<p class="secondaryNav">
+						<a href="/" class="btn btn-info btn-block">Home »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/about" class="btn btn-info btn-block">About »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/contact" class="btn btn-info btn-block">Contact »</a>
+					</p>
+				</div><!--/.well -->
+	        </div><!--/span-->
+
+		<div class="span8">
+    <p>
+      <h3 id="regMsg"><%= typeof message === "undefined" ? "" : message %></h3>
+
+      <center><h3 id="errorMsg"><i><%= typeof error1 === "undefined" ? "" : error1 %></i></h3></center>
+    </p>
+
+		  <form name="registrationForm" class="form-signin" method="post" action="/">
+				<h2>Log In</h2>
+				<input name="username" type="text" class="input-block-level" placeholder="Email address">
+				<input name="password" type="password" class="input-block-level" placeholder="Password">
+				<button class="btn btn-large btn-success" type="submit">Login</button>
+				</br>
+				<a href="/resetPassword">Forgot Password?</a>
+		  </form>
+
+	 	</div><!--/span8-->
+
+       <div class="span2">
+			<div class="well ads">
+				<h4>ADS</h4>
+				<img src="img/ViagraAd.png">
+			</div>
+		</div><!--/row-->
+
+  	  </div> <!-- row-fluid -->
+    </div> <!-- /container -->
+
+    <hr>
+
+<% include _footer %>

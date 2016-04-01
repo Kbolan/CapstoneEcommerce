@@ -1,0 +1,80 @@
+<% include _header %>
+
+   <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-info btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/editAddress" class="btn btn-info btn-block">Edit Address &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/addPayPalAccount" class="btn btn-inverse btn-block">Add PayPal Account &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/recentPurchases" class="btn btn-info btn-block">Recent Purchases &raquo;</a>
+          </p>
+          <% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+            <p class="secondaryNav">
+              <a href="/sellBook" class="btn btn-info btn-block">Sell a Book &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/sellersListings" class="btn btn-info btn-block">Current Listings &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageSellerInventory" class="btn btn-info btn-block">Manage Inventory &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageOrders" class="btn btn-info btn-block">Manage Orders &raquo;</a>
+            </p>
+          <% } %>
+
+        </div><!--/.well -->
+  </div><!--/span-->
+
+
+<div class="span9">
+
+    <h1><center><u>Link Your PayPal Account</u></center></h1>
+      <p>
+        <h3 id="regMsg"><%= typeof message === "undefined" ? "" : message %></h3>
+
+        <center><h3 id="errorMsg"><i><%= typeof error1 === "undefined" ? "" : error1 %></i></h3></center>
+      </p>
+      <center>
+      <form action="/addPayPalAccount" method="post" id="addPayPalAccount">
+        <table>
+          <tr>
+            <td><strong>PayPal Email Address: &nbsp</td>
+            <td><input name="PayPalEmail" type="text"></td>
+          </tr>
+          <tr>
+            <td><strong>Verify PayPal Email Address: &nbsp</td>
+            <td><input name="PayPalEmailVerify" type="text"></td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td><button type="submit" class="btn btn-success">Submit</button></td>
+            <td><a href="/userProfile" class="btn btn-danger">Cancel</a></td>
+          </tr>
+        </table>
+
+      </form>
+      </center>
+</div><!--/row-->
+
+
+
+
+</div><!--/row-->
+
+
+<hr>
+
+<% include _footer %>

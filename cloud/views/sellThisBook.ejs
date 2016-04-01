@@ -1,0 +1,174 @@
+<% include _header %>
+
+   <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-info btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/editAddress" class="btn btn-info btn-block">Edit Address &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/addPayPalAccount" class="btn btn-info btn-block">Add PayPal Account &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/recentPurchases" class="btn btn-info btn-block">Recent Purchases &raquo;</a>
+          </p>
+          <% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+            <p class="secondaryNav">
+              <a href="/sellBook" class="btn btn-inverse btn-block">Sell a Book &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/sellersListings" class="btn btn-info btn-block">Current Listings &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageSellerInventory" class="btn btn-info btn-block">Manage Inventory &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageOrders" class="btn btn-info btn-block">Manage Orders &raquo;</a>
+            </p>
+          <% } %>
+
+        </div><!--/.well -->
+          </div><!--/span-->
+
+
+        <div class="span9">
+
+            <p>
+              <h3 id="regMsg"><%= typeof message === "undefined" ? "" : message %></h3>
+
+              <h3 id="errorMsg"><i><%= typeof error1 === "undefined" ? "" : error1 %></i></h3>
+            </p>
+            <h1><center><u>List a Book to Sell</u></center></h1>
+
+              <% var link = "/sellThisBook/" + bookInfo.objectId; %>
+              <form action=<%=link%> method="post" id="sellBook" name="sellBook">
+                <table>
+                  <tr>
+                    <td><strong>Book Title: &nbsp</td>
+                    <td><%= bookInfo.Title %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Author: &nbsp</td>
+                    <td><%= bookInfo.Author %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>ISBN 10 or 13: &nbsp</td>
+                    <td><%= bookInfo.ISBN %></td>
+                  </tr>
+                  <tr>
+                   <td><strong>Condition: &nbsp</td>
+                    <td><select id="conditionSelect" name="conditionSelect">
+                      <option value="New">New</option>
+                      <option value="Excellent">Excellent</option>
+                      <option value="Very Good">Very Good</option>
+                      <option value="Good">Good</option>
+                      <option value="Fair">Fair</option>
+                      <option value="Poor">Poor</option>
+                    </select></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Description: &nbsp</td>
+                    <td><textarea name="bookDescription" type="text" id="bookDescription" rows="6" cols="12" maxlength="512"></textarea>
+                  </tr>
+                  <tr>
+                    <td><strong>Price: &nbsp</td>
+                    <td><input name="bookPrice" id="bookPrice" type="text" maxlength="9"></textarea>
+                  </tr>
+                  <tr>
+                   <td><strong>Quantity to sell: &nbsp</td>
+                    <td><input name="bookQuantity" id="bookQuantity" type="text" maxlength="3"></td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td><button type="submit" class="btn btn-success">Submit</button></td>
+                    <td><a href="/userProfile" class="btn btn-danger">Cancel</a></td>
+                  </tr>
+                </table>
+              </form>
+
+
+              <script src="/js/jquery.js"></script>
+              <script src="/js/jquery.validate.js"></script>
+              <script src="/js/jquery.validate.min.js"></script>
+              <script src="/js/jquery.min.js"></script>
+              <script src="/js/jquery.price_format.min.js"></script>
+              <script type="text/javascript">
+
+              $(function(){
+                $('#bookPrice').priceFormat({
+                  prefix: '$',
+                  thousandsSeparator: ',',
+                  defaultValue: 1
+                });
+              });
+
+                jQuery(document).ready(function(){
+
+
+                  $('#sellBook').validate({
+                    onkeyup: false,
+                    rules: {
+                      bookTitle: {
+                        required: true,
+                        minlength: 5
+                      },
+                      bookAuthor: {
+                        required: true,
+                        minlength: 5
+                      },
+                      isbn: {
+                        required: true,
+                        minlength: 10,
+                        digits: true
+                      },
+                      conditionSelect: {
+                        required: true,
+                        valueNotEquals: "Default"
+                      },
+                      bookDescription:{
+                        required: true,
+                        minlength: 10
+                      },
+                      bookPrice: {
+                        required: true
+                      },
+                      bookQuantity: {
+                        required: true,
+                        minlength: 1,
+                        digits: true
+                      }
+                    },
+                    highlight: function (element) {
+                      $(element).closest('div').addClass("f_error");
+                    },
+                    unhighlight: function (element){
+                      $(element).closest('div').removeClass("f_error");
+                    }
+
+                  });
+                });
+
+
+              </script>
+
+
+
+
+
+      </div><!--/row-->
+
+
+
+
+      </div><!--/row-->
+
+
+      <hr>

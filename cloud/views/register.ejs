@@ -1,0 +1,56 @@
+<% var title = "Register";
+   var register = "true";
+%>
+<% include _header %>
+
+    <div class="container-fluid">
+		<div class="row-fluid home register">
+			<div class="span2">
+				<div class="well">
+					<p class="secondaryNav">
+						<a href="/" class="btn btn-info btn-block">Home »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/about" class="btn btn-info btn-block">About »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/contact" class="btn btn-info btn-block">Contact »</a>
+					</p>
+				</div><!--/.well -->
+	        </div><!--/span-->
+
+		<div class="span8">
+			<p>
+				<h3 id="regMsg"><%= typeof message === "undefined" ? "" : message %></h3>
+
+				<h3 id="errorMsg"><i><%= typeof error1 === "undefined" ? "" : error1 %></i></h3>
+			</p>
+
+		  <form name="registrationForm" class="form-signin" method="post" action="/register">
+				<% if(message === undefined)  { %>
+					<h2 class="form-signin-heading">Please register</h2>
+				<% } %>
+				<input name="email" type="text" class="input-block-level" placeholder="Email address" maxlength="256">
+				<input name="password" type="password" class="input-block-level" placeholder="Password" maxlength="256">
+				<input name="passwordRetype" type="password" class="input-block-level" placeholder="Verify password" maxlength="256">
+
+				<label class="checkbox">
+				  <input type="checkbox" value="remember-me"> Remember me
+				</label>
+				<button class="btn btn-large btn-primary" type="submit">Register</button>
+		  </form>
+	 	</div><!--/span8-->
+
+       <div class="span2">
+			<div class="well ads">
+				<h4>ADS</h4>
+				<img src="img/ViagraAd.png">
+			</div>
+		</div><!--/row-->
+
+  	  </div> <!-- row-fluid -->
+    </div> <!-- /container -->
+
+    <hr>
+
+<% include _footer %>

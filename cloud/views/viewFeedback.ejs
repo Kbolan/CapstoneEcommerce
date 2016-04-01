@@ -1,0 +1,73 @@
+<% include _header %>
+
+   <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-info btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/editAddress" class="btn btn-info btn-block">Edit Address &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/addPayPalAccount" class="btn btn-info btn-block">Add PayPal Account &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/recentPurchases" class="btn btn-info btn-block">Recent Purchases &raquo;</a>
+          </p>
+
+
+        </div><!--/.well -->
+  </div><!--/span-->
+
+
+<div class="span9">
+
+    <h1><center><u>Feedback for <%= reviewName.substring(0, reviewName.indexOf('@')) %></u></center></h1>
+        <% if (typeof feedbackInfo !== "undefined") {
+
+          if (feedbackInfo.length > 0) { var count = 0;%>
+            <table class="table table-hover">
+              <tr>
+                <th>Reviewer</th>
+                <th>Rating</th>
+                <th>Comments</th>
+              </tr>
+              <% feedbackInfo.forEach(function (feedback) {
+                if (count%1 == 0 && count>0) {
+              %> </tr><tr>
+              <% } %>
+                  <td>
+                  <% var link = "/viewFeedback/" + feedback.ratingUser; %>
+                  <a href=<%=link%>><%= feedback.ratingUser.substring(0, feedback.ratingUser.indexOf('@')) %></a>
+                  </td>
+                  <td>
+                    <%= feedback.rating %>
+                  </td>
+                  <td>
+                    <%= feedback.comments %>
+                  </td>
+              <% count++;%>
+              <% }); %>
+            </table> <!-- row-fluid -->
+          <% } %>
+
+        <% } else { %>
+          <div><center><i>No Feedback Found</div>
+        <% } %>
+
+</div><!--/row-->
+
+
+
+
+</div><!--/row-->
+
+
+<hr>
+
+<% include _footer %>

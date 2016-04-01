@@ -1,0 +1,70 @@
+<% include _header %>
+
+    <div class="container-fluid">
+		<div class="row-fluid home register">
+			<div class="span2">
+				<div class="well">
+					<p class="secondaryNav">
+						<a href="/" class="btn btn-info btn-block">Home »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/about" class="btn btn-info btn-block">About »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/contact" class="btn btn-inverse btn-block">Contact »</a>
+					</p>
+					<% if(typeof user != "undefined") { %>
+						<p class="secondaryNav">
+							<a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+						</p>
+
+						<% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+				            <p class="secondaryNav">
+				              <a href="/sellBook" class="btn btn-info btn-block">Sell a Book &raquo;</a>
+				            </p>
+				          <% } %>
+					 <% } %>
+				</div><!--/.well -->
+	        </div><!--/span-->
+
+        <div class="span8">
+			<h1 class="aboutHeader">Contact Byblos Bookstore</h1>
+
+			<h3>Give us a call</h3>
+			<p class="aboutInfo">
+				770-867-5309
+			</p>
+			<h3>Or contact us with any questions or comments:</h3>
+
+			<div id="wrap">
+	            <form name="contact_form" class="form-contact" action="/contact" method="post" onsubmit="return validateForm()">
+	            	<div class="myRow">
+			    		<label class="labelCol" for="user_name">Name:</label>
+						<input type="text" name="user_name" placeholder="Full Name" />
+					</div><br />
+
+					<div class="myRow">
+						<label class="labelCol" for="user_email">Email:</label>
+						<input type="text" name="user_email" id="user_email" placeholder="Your Email" />
+					</div><br />
+					<div class="myRow">
+					<label for="inquiry">Comments:</label>
+					<textarea name="inquiry" type="text" id="inquiry" rows="6" cols="12" placeholder="Enter Your Message Here..."></textarea>
+					</div>
+					<button class="btn btn-large btn-primary" type="submit">Submit</button>
+				</form>
+			</div>
+      </div><!--/span8-->
+       <div class="span2">
+			<div class="well ads">
+				<h4>ADS</h4>
+				<img src="img/ViagraAd.png">
+			</div>
+		</div><!--/row-->
+
+		</div><!--/row-->
+	</div><!--/span-->
+
+      <hr>
+
+<% include _footer %>

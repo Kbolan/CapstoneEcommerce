@@ -1,0 +1,176 @@
+<% var buyer = null; if (typeof user != "undefined") buyer = Parse.User.current().get('username');%>
+<% include _header %>
+
+   <div class="container-fluid">
+		<div class="row-fluid home register search">
+			<div class="span10 cartForm">
+				<form name="myForm" class="form-inline global-search" role="form" action="/search" method="post" onsubmit="titleCaseForm()">
+					<div class="form-group">
+						<input class="input-xxlarge search-query form-control" name="appendedInputButtons" id="appendedInputButtons" type="text">
+						<button class="btn btn-default" type="submit" name="search">Search</button>
+					</div>
+				</form>
+			</div>
+			<div class="form-group">
+				<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" >
+					<fieldset class="cartForm">
+						<input type="hidden" name="business" value="jpinottz-facilitator@spsu.edu">
+						<input type="hidden" name="cmd" value="_cart" >
+						<input type="hidden" name="display" value="1" readonly="true">
+						<input type="hidden" name="buyer" value=<%= buyer %>>
+<!--
+						<input type="hidden" name="tx" value="TransactionID">
+						<input type="hidden" name="at" value="YourIdentityToken">
+ -->
+						<input name="submit" src="../img/cart.png" class="cart" alt="" type="image">
+							<span class="badge" id="badge">
+							</span>
+						</input>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+		<div class="row-fluid home register">
+			<div class="span2">
+				<div class="well">
+					<p class="secondaryNav">
+						<a href="/" class="btn btn-info btn-block">Home »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/about" class="btn btn-info btn-block">About »</a>
+					</p>
+					<p class="secondaryNav">
+						<a href="/contact" class="btn btn-inverse btn-block">Contact »</a>
+					</p>
+				</div><!--/.well -->
+	        </div><!--/span-->
+
+			<div class="span10">
+				<div class="row-fluid">
+
+					<% if(typeof book != "undefined") { %>
+						<div class="thumbnail">
+							<% var imgLink = "https://covers.openlibrary.org/b/isbn/" + book.ISBN + "-M.jpg" %>
+								<img id="cover" class="top" src=<%=imgLink%> alt="book cover"/>
+						</div>
+						<h3 class="title"><%= book.Title %></h3>
+					<% } else { %>
+						<h3 class="title">Title unknown</h3>
+					<% } %>
+					<dl>
+						<dt id="description"><h4>Description</h4></dt>
+						<dd>
+							<% if(typeof book.Author != "undefined") { %>
+								Author: <%= book.Author %>
+							<% } else { %>
+								Author: unknown
+							<% } %>
+						</dd>
+						<dd>
+							<% if(typeof book != "undefined") { %>
+								ISBN-13: <%= book.ISBN
+								%>
+							<% } else { %>
+								ISBN-13: unknown
+							<% } %>
+						</dd>
+						<dd>
+							<% if(typeof book != "undefined") { %>
+								ISBN-10: <%= book.isbn_10 %>
+							<% } else { %>
+								ISBN-10:: unknown
+							<% } %>
+						</dd>
+            <dd>
+            <% if(typeof book != "undefined") {
+                if(typeof user !== "undefined" && user.get('userType') === "Buyer and Seller"){%>
+                    <% var link = "/sellThisBook/" + book.objectId; %>
+                    <a href="<%=link%>" class="btn btn-info">Sell This Book »</a>
+
+            <% }} else { %>
+
+            <% } %>
+            </dd>
+					</dl>
+				</div><!--/row-fluid-->
+			</div><!--/span10-->
+		</div><!--/row-->
+
+		<div class="row-fluid listings">
+			<div class="span2">
+			</div>
+			<div class="span10">
+				<p id="list"><i>Listings</i></p>
+				<!-- USE FOR LISTINGS -->
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<% if (typeof bookListings != "undefined") {
+							if (bookListings.length > 0) { %>
+								<tr>
+									<th>Seller</th>
+									<th>Condition</th>
+                  <th>Description</th>
+									<th>Price</th>
+									<th>Purchase</th>
+								</tr>
+								<% bookListings.forEach(function (bookListing) { %>
+									<tr>
+
+                    <!--
+										<td><%= bookListing.Seller.substring(0, bookListing.Seller.indexOf('@')) %></td>
+                    -->
+                    <td>
+                      <% var link = "/viewFeedback/" + bookListing.Seller; %>
+                      <a href=<%=link%>><%= bookListing.Seller.substring(0, bookListing.Seller.indexOf('@')) %></a>
+                    </td>
+										<td><%= bookListing.Condition %></td>
+                    <td><%= bookListing.Description %></td>
+										<td>$<%= bookListing.Price %></td>
+
+										<td>
+											<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" >
+												<fieldset>
+													<input type="hidden" name="cmd" value="_cart">
+													<input type="hidden" name="add" value="1" readonly="true">
+													<input type="hidden" name="business" value="jpinottz-facilitator@spsu.edu">
+													<input type="hidden" name="item_name" value=<%= bookListing.ISBN %>>
+													<input type="hidden" name="amount" value=<%= bookListing.Price%>>
+													<input type="hidden" name="seller" value=<%=bookListing.Seller%>>
+													<input type="hidden" name="buyer" value=<%= buyer  %>>
+													<input type="hidden" name="discount_amount" value="0.00">
+													<input type="hidden" name="currency_code" value="USD">
+													<input type="hidden" name="return" value="https://capstone.parseapp.com/purchased/1">
+													<% var retLink = "https://capstone.parseapp.com/book/" + book.objectId; %>
+													<input type="hidden" name="cancel_return" value=<%=retLink%>>
+
+													<input type="submit" name="submit" value="Add to cart" class="button">
+												</fieldset>
+											</form>
+										</td>
+									</tr>
+								<% }); %>
+							<% } %>
+						<% } %>
+					</table>
+				</div>
+			</div>
+		</div><!--/row-->
+	</div><!--/container-->
+
+      <hr>
+      <script src="/js/to-title-case.js"></script>
+	<script>
+
+
+	var elem = document.getElementById("cover");
+
+	if (elem.width == 0)
+	{
+		elem.src = "https://poezii-crestine.tk/wp-content/uploads/2014/09/literatura-clasica-universala-antologie-default.png";
+	}
+		elem.height="180";
+		elem.width="180";
+
+	</script>
+<% include _footer %>

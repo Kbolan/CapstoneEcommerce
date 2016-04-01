@@ -1,0 +1,153 @@
+<% include _header %>
+
+  <div class="container-fluid">
+    <div class="row-fluid home register search">
+    </div>
+  </div>
+
+    <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-inverse btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/about" class="btn btn-info btn-block">About »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/contact" class="btn btn-info btn-block">Contact »</a>
+          </p>
+          <% if(typeof user != "undefined") { %>
+            <p class="secondaryNav">
+              <a href="/userProfile" class="btn btn-info btn-block">Profile »</a>
+            </p>
+
+            <% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+                    <p class="secondaryNav">
+                      <a href="/sellbuyer" class="btn btn-info btn-block">Sell a buyer &raquo;</a>
+                    </p>
+                  <% } %>
+           <% } %>
+
+        </div><!--/.well -->
+          </div><!--/span-->
+
+          <div class="span10">
+            <div class="row-fluid">
+
+              <% if(typeof buyer != undefined) { %>
+
+                <h3 class="title">User: <%= buyer.username.substring(0, buyer.username.indexOf('@')) %></h3>
+              <% } else { %>
+                <h3 class="title">Title unknown</h3>
+              <% } %>
+              <dl>
+                <dt id="description"><h4>Shipping Information</h4></dt>
+                <dd>
+                  <% if(typeof buyer.addressLine1 != "undefined") { %>
+                    Address Line 1: <%= buyer.addressLine1 %>
+                  <% } else { %>
+                    No Address Entered
+                  <% } %>
+                </dd>
+                <dd>
+                  <% if(typeof buyer.addressLine2 !== "undefined") { %>
+                    Address Line 2: <%= buyer.addressLine2 %>
+                  <% } else { %>
+
+                  <% } %>
+                </dd>
+                <dd>
+                  <% if(typeof buyer.city != "undefined") { %>
+                    City: <%= buyer.city %>
+                  <% } else { %>
+
+                  <% } %>
+                </dd>
+                <dd>
+                  <% if(typeof buyer.zipCode != "undefined") { %>
+                    Zip Code: <%= buyer.zipCode %>
+                  <% } else { %>
+
+                  <% } %>
+                </dd>
+                <dd>
+                  <% if(typeof buyer.stateCode != "undefined") { %>
+                    State: <%= buyer.stateCode %>
+                  <% } else { %>
+
+                  <% } %>
+                </dd>
+                <dd>
+                </br>
+                <div id="printableArea" style="display: none;">
+                    <center>
+                    <% if(typeof buyer.fullName != "undefined") { %>
+                      <%= buyer.fullName %>
+                    <% } else { %>
+                      <%= buyer.username.substring(0, buyer.username.indexOf('@')) %>
+                    <% } %>
+                    <% if(typeof buyer.addressLine1 != "undefined") { %>
+                      </br><%= buyer.addressLine1 %>
+                    <% } else { %>
+                      No Address Entered
+                    <% } %>
+                    <% if(typeof buyer.addressLine2 !== "undefined") { %>
+                      </br> <%= buyer.addressLine2 %>
+                    <% } else { %>
+                    <% } %>
+                    <% if(typeof buyer.city != "undefined") { %>
+                      </br><%= buyer.city %>,
+                    <% } else { %>
+
+                    <% } %>
+                    <% if(typeof buyer.stateCode != "undefined") { %>
+                      <%= buyer.stateCode %>
+                    <% } else { %>
+
+                    <% } %>
+                    <% if(typeof buyer.zipCode != "undefined") { %>
+                       <%= buyer.zipCode %>
+                    <% } else { %>
+
+                    <% } %></center>
+                </div>
+
+
+                <% if(typeof buyer.addressLine1 != "undefined") { %>
+                  <input class="btn btn-info" type="button" onclick="printDiv('printableArea')" value="Print a Shipping Label!" />
+                <% } else { %>
+
+                <% } %>
+
+                <script>
+                  function printDiv(divName) {
+                     var printContents = document.getElementById(divName).innerHTML;
+                     var originalContents = document.body.innerHTML;
+
+                     document.body.innerHTML = printContents;
+
+                     window.print();
+
+                     document.body.innerHTML = originalContents;
+                  }
+              </script>
+                </dd>
+                <dd>
+                </br>
+
+              <button class="btn btn-info" onclick="goBack()">Return</button>
+
+              <script>
+              function goBack() {
+                  window.history.back()
+              }
+              </script>
+                </dd>
+              </dl>
+            </div><!--/row-fluid-->
+          </div><!--/span10-->
+          </div><!--/row-->
+
+<% include _footer %>

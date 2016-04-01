@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Capstone": {
+            "applicationId": "iNsUaMNfWLEX4e0Q7nm97yDm3nPVGXa5uH5iZTN6", 
+            "masterKey": "BXM8oDTdjdpwbrPzUbmQ8mSiJJMOkxR5GlrzWy2B"
+        }, 
+        "_default": {
+            "link": "Capstone"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.19"
+    }
+}

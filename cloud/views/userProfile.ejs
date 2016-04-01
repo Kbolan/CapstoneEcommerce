@@ -1,0 +1,135 @@
+<% include _header %>
+
+   <div class="container-fluid">
+    <div class="row-fluid home">
+      <div class="span2">
+        <div class="well">
+          <p class="secondaryNav">
+            <a href="/" class="btn btn-info btn-block">Home »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/userProfile" class="btn btn-inverse btn-block">Profile »</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/editAddress" class="btn btn-info btn-block">Edit Address &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/addPayPalAccount" class="btn btn-info btn-block">Add PayPal Account &raquo;</a>
+          </p>
+          <p class="secondaryNav">
+            <a href="/recentPurchases" class="btn btn-info btn-block">Recent Purchases &raquo;</a>
+          </p>
+          <% if (Parse.User.current().get('userType') == "Seller" || Parse.User.current().get('userType') === "Buyer and Seller") { %>
+            <p class="secondaryNav">
+              <a href="/sellBook" class="btn btn-info btn-block">Sell a Book &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/sellersListings" class="btn btn-info btn-block">Current Listings &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageSellerInventory" class="btn btn-info btn-block">Manage Inventory &raquo;</a>
+            </p>
+            <p class="secondaryNav">
+              <a href="/manageOrders" class="btn btn-info btn-block">Manage Orders &raquo;</a>
+            </p>
+          <% } %>
+
+        </div><!--/.well -->
+          </div><!--/span-->
+
+
+        <div class="span9">
+
+            <h1>Profile</h1>
+        <table>
+          <tr>
+            <td valign="top"><img src="img/blankProfilePic.png"/></td>
+            <td><table>
+              <tr>
+                <td><strong>Full Name: &nbsp</td>
+                <td><%= Parse.User.current().get('fullName') %></td>
+              </tr>
+              <tr>
+                <td><strong>Email: &nbsp</td>
+                <td><%= Parse.User.current().get('email') %></td>
+              </tr>
+              <tr>
+                <td><strong>Type of User: &nbsp</tb>
+                <td><%= Parse.User.current().get('userType') %></td>
+              </tr>
+
+              <% if (Parse.User.current().get('addressLine1') == undefined) { %>
+                <tr>
+                  <td colspan="2"><h2>&mdash; Address Information &mdash; </h2></td>
+                </tr>
+                <tr>
+                  <td><strong>Address: &nbsp</td>
+                  <td><i>No address entered</i></td>
+                </tr>
+
+              <% } else { %>
+                <tr>
+                  <td colspan="2"><h2>&mdash; Address Information &mdash; </h2></td>
+                </tr>
+                <tr>
+                  <td><strong>Address Line 1: &nbsp</td>
+                  <td><%= Parse.User.current().get('addressLine1') %></td>
+                </tr>
+                <% if (Parse.User.current().get('addressLine2') != "") { %>
+                  <tr>
+                    <td><strong>Address Line 2: &nbsp</td>
+                    <td><%= Parse.User.current().get('addressLine2') %></td>
+                  </tr>
+                <% } %>
+                <tr>
+                  <td><strong>City: &nbsp</td>
+                  <td><%= Parse.User.current().get('city') %></td>
+                </tr>
+                <tr>
+                  <td><strong>State Code: &nbsp</td>
+                  <td><%= Parse.User.current().get('stateCode') %></td>
+                </tr>
+                <tr>
+                  <td><strong>Zip Code: &nbsp</td>
+                  <td><%= Parse.User.current().get('zipCode') %></td>
+                </tr>
+
+              <% } %>
+
+              <% if (Parse.User.current().get('PayPalEmailAddress') == undefined) { %>
+                <tr>
+                  <td colspan="2"><h2>&mdash; PayPal Account Email &mdash; </h2></td>
+                </tr>
+                <tr>
+                  <td><strong>PayPal Email: &nbsp</td>
+                  <td><i>No PayPal account information entered</i></td>
+                </tr>
+              <% } else { %>
+                <tr>
+                  <td colspan="2"><h2>&mdash; PayPal Account Email &mdash; </h2></td>
+                </tr>
+                <tr>
+                  <td><strong>PayPal Email: &nbsp</td>
+                  <td><%= Parse.User.current().get('PayPalEmailAddress') %></td>
+                  <td><form action="/removePayPalEmail" method="post">
+                        <button type="submit" class="btn btn-danger"><i>Remove</i></button>
+                      </form>
+                  </td>
+                </tr>
+              <% } %>
+
+            </table></td>
+          </tr>
+        </table>
+      </div><!--/row-->
+
+
+
+
+
+      </div><!--/row-->
+
+
+      <hr>
+
+<% include _footer %>

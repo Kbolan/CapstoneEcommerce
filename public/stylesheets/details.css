@@ -1,0 +1,31 @@
+.thumbnail {
+    float: left;
+    margin: 5px;
+    margin-right: 3%;
+}
+
+img.normal {
+    height: auto;
+}
+
+.title {
+	text-align:center;
+	margin-right: 30%;
+}
+
+#description {
+	margin-top:2%;
+}
+
+dd {
+	font-size: 1.1em;	
+}
+
+#list {
+	font-size: large;	
+}
+
+.listings{
+	margin-top:5%;
+}
+/* 	background-color: black; */
